@@ -1,0 +1,15 @@
+I need a new website. I need you to design and build it.
+
+The website must be built on Django.
+
+The website a quiz application that must use Open Trivia DB.
+
+The user will be shown one question at a time.
+
+10 questions should be displayed one by one.
+
+If the user select incorrect answer the correct answer must by highlighted.
+
+If the user select correct answer the selected answer is highlighted in green or any color.
+
+At the end the number of correct and incorrect answer must be shown.

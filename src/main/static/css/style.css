@@ -1,0 +1,67 @@
+/* Main Styling */
+body {
+    background: #fff
+}
+.container {
+    max-width: 800px;
+    margin: 273px auto;
+    word-break: break-all;
+}
+.container .question p {
+    font-size: 25px;
+    font-family: sans-serif;
+}
+.container .answers .answer {
+    border: 1px solid #d4d4d4;
+    padding: 17px 10px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.container .answers .answer:hover {
+    background: #d4d4d4
+}
+.container .answers .answer .number {
+    color: #fff;
+    background: #1879d3;
+    padding: 10px 15px;
+    font-family: sans-serif;
+    margin-right: 10px;
+}
+.bottomBar {
+    position: fixed;
+    bottom: 0;
+    padding: 25px 10px;
+    font-size: 17px;
+    font-family: sans-serif;
+    border-top: 1px solid #d4d4d4;
+    width: 98%;
+}
+.bottomBar .left {
+    position: relative;
+    top: 10px;
+}
+.bottomBar .right {
+    float: right;
+}
+.bottomBar .right button {
+    background: green;
+    color: white;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    transition: background 0.3s ease;
+}
+.bottomBar .right button:hover {
+    background: #076607
+}
+@media screen and (max-width: 1440px) {
+    .container {
+        max-width: 800px;
+        margin: 150px auto;
+        word-break: break-all;
+    }
+}

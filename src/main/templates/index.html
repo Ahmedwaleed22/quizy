@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quizy</title>
+        <!-- Required Meta Tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            let questions = {{ questions|safe }};
+            let questionNum = 0;
+            let trueAnswers = 0;
+            let allAnswers = [...questions[questionNum]['incorrect_answers'], questions[questionNum]['correct_answer']];
+
+            function submitans(answer) {
+                const parseEntities = txt => new DOMParser().parseFromString(txt, 'text/html').body.innerText;
+                console.log(parseEntities(answer));
+                console.log(parseEntities(questions[questionNum].correct_answer));
+                if (parseEntities(answer) == parseEntities(questions[questionNum].correct_answer)) {
+                    trueAnswers += 1;
+                }
+
+                let choices = document.querySelectorAll(".answer");
+                choices.forEach((choice, index) => {
+                    let choiceValue = choice.querySelector(".answer-text").getAttribute("data-answer");
+                    if (parseEntities(choiceValue) == parseEntities(questions[questionNum].correct_answer)) {
+                        choice.style.background = "green";
+                        choice.style.color = "white";
+                    } else {
+                        choice.style.background = "red";
+                        choice.style.color = "white";
+                    }
+                    choice.removeAttribute("onclick");
+                });
+            }
+            function nextquestion() {
+                if (questionNum < 10) {
+                    questionNum += 1;
+                    $(".question-text").html(questions[questionNum - 1]['question']);
+                    getans();
+                } else {
+                    console.log("Done!");
+                }
+                $(".qesnumber").html(questionNum + 1);
+            }
+            function getans() {
+                allAnswers = [...questions[questionNum]['incorrect_answers'], questions[questionNum]['correct_answer']]
+                $(".answers").empty();
+                allAnswers.forEach((answer, index) => {
+                    $('<div class="answer" onclick="submitans(\'' + escape(answer) +'\')">' +
+                        '<span class="number">' + (index + 1) + '</span>' +
+                        '<span class="answer-text" data-answer="' + answer + '">' + answer + '</span>' +
+                    '</div>').appendTo(".answers");
+                });
+                console.log(trueAnswers);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container" id="container">
+            <div class="question">
+                <p class="question-text">
+                    <script>
+                        document.write(questions[questionNum]['question']);
+                    </script>
+                </p>
+            </div>
+            <div class="answers">
+                <script class="answersScript">
+                    allAnswers.forEach((answer, index) => {
+                        document.write('<div class="answer" onclick="submitans(\'' + answer +'\')">' +
+                            '<span class="number">' + (index + 1) + '</span>' +
+                            '<span class="answer-text" data-answer="' + answer + '">' + answer + '</span>' +
+                        '</div>');
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="bottomBar">
+            <span class="left">Question <span class="qesnumber"><script>document.write(questionNum + 1)</script></span> Of 10</span>
+            <span class="right"><button onclick="nextquestion()">NEXT ></button></span>
+        </div>
+        <script src="{% static 'js/app.js' %}"></script>
+    </body>
+</html>
