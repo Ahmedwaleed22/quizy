@@ -16,9 +16,7 @@
 
             function submitans(answer) {
                 const parseEntities = txt => new DOMParser().parseFromString(txt, 'text/html').body.innerText;
-                console.log(parseEntities(answer));
-                console.log(parseEntities(questions[questionNum].correct_answer));
-                if (parseEntities(answer) == parseEntities(questions[questionNum].correct_answer)) {
+                if (decodeURIComponent(answer) == decodeURIComponent(questions[questionNum].correct_answer)) {
                     trueAnswers += 1;
                 }
 
