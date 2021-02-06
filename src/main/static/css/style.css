@@ -55,8 +55,8 @@ body {
     height: 40px;
     transition: background 0.3s ease;
 }
-.bottomBar .right button:hover {
-    background: #076607
+.bottomBar .right button:disabled {
+    background: #979797;
 }
 @media screen and (max-width: 1440px) {
     .container {
@@ -64,4 +64,44 @@ body {
         margin: 150px auto;
         word-break: break-all;
     }
+}
+.pointscontainer {
+    text-align: center;
+    margin-top: 250px;
+    font-family: sans-serif;
+}
+.pointscontainer .truesign {
+    height: 150px;
+    width: 150px;
+    font-size: 106px;
+    line-height: 150px;
+    background: rgb(0, 192, 157);
+    color: #fff;
+    border-radius: 50%;
+    right: 0;
+    left: 0;
+    margin: 50px auto;
+}
+.pointscontainer .congrats {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+.pointscontainer .points {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.pointscontainer .actions button {
+    background: rgb(0, 192, 157);
+    color: white;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    transition: background 0.3s ease;
+    margin-top: 30px;
+    font-size: 18px;
+}
+.pointscontainer .actions button:hover {
+    background: rgb(0, 170, 139);
 }

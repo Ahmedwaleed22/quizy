@@ -32,9 +32,10 @@
                     }
                     choice.removeAttribute("onclick");
                 });
+                document.querySelector(".bottomBar .right button").removeAttribute("disabled");
             }
             function nextquestion() {
-                if (questionNum < 10) {
+                if (questionNum <= 10) {
                     questionNum += 1;
                     $(".question-text").html(questions[questionNum - 1]['question']);
                     getans();
@@ -42,21 +43,32 @@
                     console.log("Done!");
                 }
                 $(".qesnumber").html(questionNum + 1);
+                document.querySelector(".bottomBar .right button").setAttribute("disabled", "");
             }
             function getans() {
-                allAnswers = [...questions[questionNum]['incorrect_answers'], questions[questionNum]['correct_answer']]
-                $(".answers").empty();
-                allAnswers.forEach((answer, index) => {
-                    $('<div class="answer" onclick="submitans(\'' + escape(answer) +'\')">' +
-                        '<span class="number">' + (index + 1) + '</span>' +
-                        '<span class="answer-text" data-answer="' + answer + '">' + answer + '</span>' +
-                    '</div>').appendTo(".answers");
-                });
-                console.log(trueAnswers);
+                if (questionNum < 10) {
+                    allAnswers = [...questions[questionNum]['incorrect_answers'], questions[questionNum]['correct_answer']]
+                    $(".answers").empty();
+                    allAnswers.sort(() => Math.random() - 0.4);
+                    allAnswers.forEach((answer, index) => {
+                        $('<div class="answer" onclick="submitans(\'' + escape(answer) +'\')">' +
+                            '<span class="number">' + (index + 1) + '</span>' +
+                            '<span class="answer-text" data-answer="' + answer + '">' + answer + '</span>' +
+                        '</div>').appendTo(".answers");
+                    });
+                    console.log(trueAnswers);
+                } else {
+                    document.getElementById("totalpoints").value = trueAnswers;
+                    document.getElementById("pointsform").submit();
+                }
             }
         </script>
     </head>
     <body>
+        <form id="pointsform" action="/scored/" method="post">
+            {% csrf_token %}
+            <input id="totalpoints" type="hidden" name="totalpoints" value="0">
+        </form>
         <div class="container" id="container">
             <div class="question">
                 <p class="question-text">
@@ -67,6 +79,7 @@
             </div>
             <div class="answers">
                 <script class="answersScript">
+                    allAnswers.sort(() => Math.random() - 0.4);
                     allAnswers.forEach((answer, index) => {
                         document.write('<div class="answer" onclick="submitans(\'' + answer +'\')">' +
                             '<span class="number">' + (index + 1) + '</span>' +
@@ -78,7 +91,7 @@
         </div>
         <div class="bottomBar">
             <span class="left">Question <span class="qesnumber"><script>document.write(questionNum + 1)</script></span> Of 10</span>
-            <span class="right"><button onclick="nextquestion()">NEXT ></button></span>
+            <span class="right"><button disabled onclick="nextquestion()">NEXT ></button></span>
         </div>
         <script src="{% static 'js/app.js' %}"></script>
     </body>

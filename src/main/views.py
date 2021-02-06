@@ -20,3 +20,9 @@ class index(View):
         return render(request, "index.html", {
             "questions": json.dumps(res),
         })
+
+class scored(View):
+    def post(self, request):
+        return render(request, "scored.html", {
+            "points": request.POST['totalpoints']
+        })
