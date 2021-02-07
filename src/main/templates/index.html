@@ -35,12 +35,12 @@
                 document.querySelector(".bottomBar .right button").removeAttribute("disabled");
             }
             function nextquestion() {
-                if (questionNum <= 10) {
+                if (questionNum < 9) {
                     questionNum += 1;
-                    $(".question-text").html(questions[questionNum - 1]['question']);
+                    $(".question-text").html(questions[questionNum]['question']);
                     getans();
                 } else {
-                    console.log("Done!");
+                    getScore();
                 }
                 $(".qesnumber").html(questionNum + 1);
                 document.querySelector(".bottomBar .right button").setAttribute("disabled", "");
@@ -57,10 +57,11 @@
                         '</div>').appendTo(".answers");
                     });
                     console.log(trueAnswers);
-                } else {
-                    document.getElementById("totalpoints").value = trueAnswers;
-                    document.getElementById("pointsform").submit();
                 }
+            }
+            function getScore() {
+                document.getElementById("totalpoints").value = trueAnswers;
+                document.getElementById("pointsform").submit();
             }
         </script>
     </head>
